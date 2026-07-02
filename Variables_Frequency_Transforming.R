@@ -215,18 +215,18 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                      paste0(
                                        year(data), 
                                        case_when(
-                                         month(data) == 1 ~ '_jan',
-                                         month(data) == 2 ~ '_fev',
-                                         month(data) == 3 ~ '_mar',
-                                         month(data) == 4 ~ '_abr',
-                                         month(data) == 5 ~ '_mai',
-                                         month(data) == 6 ~ '_jun',
-                                         month(data) == 7 ~ '_jul',
-                                         month(data) == 8 ~ '_ago',
-                                         month(data) == 9 ~ '_set',
-                                         month(data) == 10 ~ '_out',
-                                         month(data) == 11 ~ '_nov',
-                                         .default = '_dez')))
+                                         month(data) == 1 ~ '_M01',
+                                         month(data) == 2 ~ '_M02',
+                                         month(data) == 3 ~ '_M03',
+                                         month(data) == 4 ~ '_M04',
+                                         month(data) == 5 ~ '_M05',
+                                         month(data) == 6 ~ '_M06',
+                                         month(data) == 7 ~ '_M07',
+                                         month(data) == 8 ~ '_M08',
+                                         month(data) == 9 ~ '_M09',
+                                         month(data) == 10 ~ '_M10',
+                                         month(data) == 11 ~ '_M11',
+                                         .default = '_M12')))
     }
     
     else if(frequency %in% list('bimestral', 'bimonthly')){
@@ -234,12 +234,12 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                      paste0(
                                        year(data), 
                                        case_when(
-                                         month(data) %in% c(1,2) ~ '_fev', 
-                                         month(data) %in% c(3,4) ~ '_abr',
-                                         month(data) %in% c(5,6) ~ '_jun',
-                                         month(data) %in% c(7,8) ~ '_ago',
-                                         month(data) %in% c(9,10) ~ '_out',
-                                         .default = '_dez')))
+                                         month(data) %in% c(1,2) ~ '_B1', 
+                                         month(data) %in% c(3,4) ~ '_B2',
+                                         month(data) %in% c(5,6) ~ '_B3',
+                                         month(data) %in% c(7,8) ~ '_B4',
+                                         month(data) %in% c(9,10) ~ '_B5',
+                                         .default = '_B6')))
     }
     
     else if(frequency %in% list('trimestral', 'quartely')){
@@ -247,10 +247,10 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                      paste0(
                                        year(data), 
                                        case_when(
-                                         month(data) %in% c(1,2,3) ~ '_mar', 
-                                         month(data) %in% c(4,5,6) ~ '_jun',
-                                         month(data) %in% c(7,8,9) ~ '_set',
-                                         .default = '_dez')))
+                                         month(data) %in% c(1,2,3) ~ '_Q1', 
+                                         month(data) %in% c(4,5,6) ~ '_Q2',
+                                         month(data) %in% c(7,8,9) ~ '_Q3',
+                                         .default = '_Q4')))
     }
     
     else if(frequency %in% list('semestral', 'halfyear')){
@@ -258,8 +258,8 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                      paste0(
                                        year(data), 
                                        case_when(
-                                         month(data) - 6 >= 1 ~ '_dez', 
-                                         .default = '_jun')))
+                                         month(data) - 6 >= 1 ~ '_H1', 
+                                         .default = '_H2')))
     }
   }
   

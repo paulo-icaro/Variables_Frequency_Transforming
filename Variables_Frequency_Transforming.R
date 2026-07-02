@@ -210,7 +210,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
   # --- Change Date Column to Match Frequency --- #
   # --------------------------------------------- #
   if(change_date == TRUE){
-    if(frequency == 'mensal'){
+    if(frequency %in% list('mensal','monthly')){
       dataset = dataset %>% mutate(data = 
                                      paste0(
                                        year(data), 
@@ -229,7 +229,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                          .default = '_dez')))
     }
     
-    else if(frequency == 'bimestral'){
+    else if(frequency %in% list('bimestral', 'bimonthly')){
       dataset = dataset %>% mutate(data = 
                                      paste0(
                                        year(data), 
@@ -242,7 +242,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                          .default = '_dez')))
     }
     
-    else if(frequency == 'trimestral'){
+    else if(frequency %in% list('trimestral', 'quartely')){
       dataset = dataset %>% mutate(data = 
                                      paste0(
                                        year(data), 
@@ -253,7 +253,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
                                          .default = '_dez')))
     }
     
-    else if(frequency == 'semestral'){
+    else if(frequency %in% list('semestral', 'halfyear')){
       dataset = dataset %>% mutate(data = 
                                      paste0(
                                        year(data), 

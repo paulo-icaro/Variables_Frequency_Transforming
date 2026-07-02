@@ -209,7 +209,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
   # --------------------------------------------- #
   # --- Change Date Column to Match Frequency --- #
   # --------------------------------------------- #
-  if(change_date == FALSE){
+  if(change_date == TRUE){
     if(frequency %in% list('mensal','monthly')){
       dataset = dataset %>% mutate(data = 
                                      paste0(

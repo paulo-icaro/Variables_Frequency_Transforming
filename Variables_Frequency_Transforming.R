@@ -89,7 +89,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
   # ----------------------------- #  
   # --- Transform Type - Mean --- #
   # ----------------------------- #
-  else if(transform_type %in% list('media', 'average')){
+  else if(transform_type %in% list('media', 'mean')){
     
     if(frequency %in% list('mensal', 'monthly')){
       dataset = unique(

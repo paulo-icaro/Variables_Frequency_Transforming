@@ -18,7 +18,7 @@ tryCatch(expr = suppressWarnings(library(lubridate)),
 # ============================ #
 # === Transforming Dataset === #
 # ============================ #
-cumulative_transform = function(transform_type, frequency, dataset, change_date = TRUE){
+cumulative_transform = function(transform_type, frequency, dataset, change_date = FALSE){
   
   # ---------------------------- #
   # --- Transform Type - Sum --- #
@@ -209,7 +209,7 @@ cumulative_transform = function(transform_type, frequency, dataset, change_date 
   # --------------------------------------------- #
   # --- Change Date Column to Match Frequency --- #
   # --------------------------------------------- #
-  if(change_date == TRUE){
+  if(change_date == FALSE){
     if(frequency %in% list('mensal','monthly')){
       dataset = dataset %>% mutate(data = 
                                      paste0(

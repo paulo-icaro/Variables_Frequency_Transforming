@@ -293,7 +293,7 @@ cumulative_transform = function(transform_type, frequency, dataset, groupby_vari
     }
   } else{
     
-    if(change_date == TRUE){
+    if(change_date_format == TRUE){
       if(frequency %in% list('mensal','monthly')){
         dataset = dataset %>% mutate(data = 
                                        paste0(

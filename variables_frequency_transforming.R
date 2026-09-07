@@ -18,7 +18,7 @@ tryCatch(expr = suppressWarnings(library(lubridate)),
 # ============================ #
 # === Transforming Dataset === #
 # ============================ #
-cumulative_transform = function(transform_type, frequency, dataset, groupby_variables = NULL, change_date = FALSE){
+cumulative_transform = function(transform_type, frequency, dataset, groupby_variables = NULL, change_date_format = FALSE){
   
   # ---------------------------- #
   # --- Transform Type - Sum --- #
@@ -251,9 +251,9 @@ cumulative_transform = function(transform_type, frequency, dataset, groupby_vari
   
   
   # --------------------------------------------- #
-  # --- Change Date Column to Match Frequency --- #
+  # --- Adjust Date Column to Match Frequency --- #
   # --------------------------------------------- #
-  if(change_date == TRUE){
+  if(change_date == FALSE){
     if(frequency %in% list('mensal','monthly')){
       next
     }
@@ -290,6 +290,61 @@ cumulative_transform = function(transform_type, frequency, dataset, groupby_vari
                                        case_when(month(data) - 6 >= 1 ~ '06-01', 
                                                  .default = '-12-01')),
                                      tryFormats = c('%Y-%m-%d')))
+    }
+  } else{
+    
+    if(change_date == TRUE){
+      if(frequency %in% list('mensal','monthly')){
+        dataset = dataset %>% mutate(data = 
+                                       paste0(
+                                         year(data), 
+                                         case_when(
+                                           month(data) == 1 ~ '_M01',
+                                           month(data) == 2 ~ '_M02',
+                                           month(data) == 3 ~ '_M03',
+                                           month(data) == 4 ~ '_M04',
+                                           month(data) == 5 ~ '_M05',
+                                           month(data) == 6 ~ '_M06',
+                                           month(data) == 7 ~ '_M07',
+                                           month(data) == 8 ~ '_M08',
+                                           month(data) == 9 ~ '_M09',
+                                           month(data) == 10 ~ '_M10',
+                                           month(data) == 11 ~ '_M11',
+                                           .default = '_M12')))
+      }
+      
+      else if(frequency %in% list('bimestral', 'bimonthly')){
+        dataset = dataset %>% mutate(data = 
+                                       paste0(
+                                         year(data), 
+                                         case_when(
+                                           month(data) %in% c(1,2) ~ '_B1', 
+                                           month(data) %in% c(3,4) ~ '_B2',
+                                           month(data) %in% c(5,6) ~ '_B3',
+                                           month(data) %in% c(7,8) ~ '_B4',
+                                           month(data) %in% c(9,10) ~ '_B5',
+                                           .default = '_B6')))
+      }
+      
+      else if(frequency %in% list('trimestral', 'quartely')){
+        dataset = dataset %>% mutate(data = 
+                                       paste0(
+                                         year(data), 
+                                         case_when(
+                                           month(data) %in% c(1,2,3) ~ '_Q1', 
+                                           month(data) %in% c(4,5,6) ~ '_Q2',
+                                           month(data) %in% c(7,8,9) ~ '_Q3',
+                                           .default = '_Q4')))
+      }
+      
+      else if(frequency %in% list('semestral', 'halfyear')){
+        dataset = dataset %>% mutate(data = 
+                                       paste0(
+                                         year(data), 
+                                         case_when(
+                                           month(data) - 6 >= 1 ~ '_H1', 
+                                           .default = '_H2')))
+      }
     }
   }
   

@@ -254,11 +254,7 @@ cumulative_transform = function(transform_type, frequency, dataset, groupby_vari
   # --- Adjust Date Column to Match Frequency --- #
   # --------------------------------------------- #
   if(change_date_format == FALSE){
-    if(frequency %in% list('mensal','monthly')){
-      next
-    }
-    
-    else if(frequency %in% list('bimestral', 'bimonthly')){
+    if(frequency %in% list('bimestral', 'bimonthly')){
       dataset = dataset %>% mutate(data = as.Date(
                                      paste0(
                                             year(data), 

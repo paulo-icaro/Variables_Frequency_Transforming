@@ -45,20 +45,20 @@ cumulative_transform = function(transform_type, frequency, dataset, groupby_vari
     }
     
     else if(frequency %in% list('trimestral', 'quartely')){
-      dataset = 
+      dataset = unique(
         dataset %>% 
         mutate(data = floor_date(data, unit = 'quarter')) %>%
         group_by(data, across(all_of(groupby_variables))) %>%
-        mutate(across(where(is.numeric), sum)) %>%
+        mutate(across(where(is.numeric), sum))) %>%
         ungroup()
     }
     
     else if(frequency %in% list('semestral', 'halfyear')){
-      dataset = 
+      dataset = unique(
         dataset %>% 
         mutate(data = floor_date(data, unit = 'halfyear')) %>%
         group_by(data, across(all_of(groupby_variables))) %>%
-        mutate(across(where(is.numeric), sum)) %>%
+        mutate(across(where(is.numeric), sum))) %>%
         ungroup()
     }
   }

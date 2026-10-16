@@ -274,7 +274,7 @@ cumulative_transform = function(transform_type, frequency, dataset, groupby_vari
                                        case_when(month(data) %in% c(1,2,3) ~ '-03-01', 
                                                  month(data) %in% c(4,5,6) ~ '-06-01',
                                                  month(data) %in% c(7,8,9) ~ '-09-01',
-                                                 .default = '12-01')),
+                                                 .default = '-12-01')),
                                      tryFormats = c('%Y-%m-%d')))
                                      
     }
